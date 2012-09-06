@@ -1,4 +1,5 @@
 .DS_Store
 play.txt
 tmp
-no1
+on1/*.txt
+!on1/master.txt
