@@ -1,0 +1,1 @@
+monstersOpts = {'dragon' : [200, 0.1], 'zombie' : [150, 0.02], 'warewolf' : [100, 0.5]}
