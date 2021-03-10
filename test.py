@@ -1,4 +1,6 @@
 import random
+import time
+from termcolor import colored, cprint
 
 humans = ['knite', 'bishop', 'landlord']
 humansOpts = {'knite': [100, 0.5], 'bishop': [80, 0.9], 'landlord': [120, 0.3]}
@@ -8,10 +10,10 @@ lastTurn = None
 
 def checkArmieStatus(humans, monsters):
     if (len(humans) == 0):
-        print("Monsters WINS")
+        print(colored("Monsters WINS", 'yellow', attrs=['bold']))
         return False 
     elif (len(monsters) == 0):
-        print("Humans WINS")
+        print(colored("Humans WINS", 'yellow', attrs=['bold']))
         return False 
     else:
         # print("Let the war begins")
@@ -66,22 +68,26 @@ def turn(army, abilities, lastTurn):
             abilities[ourHero[0]][0] = ourHero[1]
 
         else:
-            print(ourHero[0], " is dead.")
+            print(colored(ourHero[0] + " is dead.", 'red'))
             abilities[ourHero[0]][0] = 0 
             army.remove(ourHero[0])
 
 
     ourHero = chooseTheHealthiest(abilities, army)
     damage = diceToDamage()
-    print("Our hero is ", ourHero)
-    print("He will get damage: ", damage)
-    print("He is from the army", army)
+    if ourHero[1] < 25:
+        print("Our hero is ", ourHero)
+        print("He will get damage: ", damage)
+        time.sleep(2)
+    elif damage > 12:
+        print(colored( ourHero[0] + " is getting hard " + str(damage), 'cyan', attrs=['blink']))
+    # print("He is from the army", army)
     damageCalc(ourHero, damage, army)
     
 
 def event_loop(lastTurn, humans, monsters):
     while True:
-        print(humans, monsters)
+        # print(humans, monsters)
         checkThem = checkArmieStatus(humans, monsters)
         if checkThem:
             lastTurn = whosTurn(lastTurn)
